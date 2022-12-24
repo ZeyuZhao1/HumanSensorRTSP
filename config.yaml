@@ -1,0 +1,14 @@
+version: test
+
+#basic perferences
+from_url_or_cam: url
+url: "rtsp://192.168.0.116:8554/cam"
+cam: 0
+module: "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/cv2/data/haarcascade_eye.xml"
+
+#mqtt perferences
+broker: '192.168.0.119'
+port: 1883
+topic: "/python/mqtt"
+account: ha
+password: 1234abcd
