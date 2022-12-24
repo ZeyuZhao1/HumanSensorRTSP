@@ -1,3 +1,4 @@
+#Built with Python3.10 and OpenCV4.6.0
 import cv2 as cv
 from paho.mqtt import client as mqtt_client
 import time
@@ -15,7 +16,9 @@ broker = preferences['broker']
 port =  preferences['port']
 topic = preferences['topic']
 #client_id = f'python-mqtt-{random.randint(0, 1000)}'
-print(cv.__version__)
+
+print('CV2 Version is ' + cv.__version__ )
+print('Starting...')
 
 '''以图片保存含有人体的帧
 def imgSave(img):
@@ -25,7 +28,7 @@ def imgSave(img):
     print('Saved successfully')
 '''
 
-last_capture_time_stamp = int(round(time.time(),0))
+last_capture_time_stamp = time.time()
 
 def discern(img):
     gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
@@ -60,18 +63,16 @@ def connect_mqtt():#连接mqtt
     return client
 
 def publish(client):#发布mqtt
-    msg_count = 0
     if human_state == True:
         #msg = f"human {msg_count}"
-        msg = f'Human exist '+ show_capture_time
+        msg = f'Human exist at '+ show_capture_time
         result = client.publish(topic, msg)
-        #result: [0, 1]
+        #result: [0,1]
         status = result[0]
         if status == 0:
-            print(f"Send `{msg}` to topic `{topic}`" + 'at ' + show_capture_time)
+            print(f"Send `{msg}` to topic `{topic}`")
         else:
             print(f"Failed to send message to topic {topic}")
-        #msg_count += 1
 
 def run():
     client = connect_mqtt()
@@ -83,12 +84,12 @@ cap = cv.VideoCapture(preferences['from_url_or_cam'])
 
 while True:
     ret, img = cap.read()#逐帧显示
-    #cv2.imshow("Image", img)#保存含有人体的帧
     discern(img)
     time_interval = time.time() - last_capture_time_stamp
     if time_interval >= 1:
         run()
         last_capture_time_stamp = time.time()
+        #cv2.imshow("Image", img)#保存含有人体的帧
 
     if cv.waitKey(1) & 0xFF == ord('q'):
         break
