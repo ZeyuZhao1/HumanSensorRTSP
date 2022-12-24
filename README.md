@@ -1,0 +1,2 @@
+# HumanSensorRTSP
+一个通过OpenCV视觉算法识别人体然后mqtt广播的程序。
