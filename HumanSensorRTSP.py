@@ -74,19 +74,18 @@ def publish(client):#发布mqtt
         #msg_count += 1
 
 def run():
-    #print('run mqtt')
     client = connect_mqtt()
     #client.loop_start()
     publish(client)
     #client.on_disconnect
     
-cap = cv.VideoCapture(url)
+cap = cv.VideoCapture(preferences['from_url_or_cam'])
 
 while True:
     ret, img = cap.read()#逐帧显示
     #cv2.imshow("Image", img)#保存含有人体的帧
     discern(img)
-    time_interval = int(round(time.time(),0)) - last_capture_time_stamp
+    time_interval = time.time() - last_capture_time_stamp
     if time_interval >= 1:
         run()
         last_capture_time_stamp = time.time()
