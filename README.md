@@ -1,2 +1,3 @@
 # HumanSensorRTSP
-一个通过OpenCV视觉算法识别人体然后mqtt广播的程序。
+一个通过OpenCV视觉算法识别人体然后通过mqtt广播的程序。
+视觉算法的视频输入支持本地摄像头或者RTSP流。
