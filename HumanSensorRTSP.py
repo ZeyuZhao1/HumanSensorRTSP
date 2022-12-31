@@ -47,7 +47,7 @@ def discern(img):
     else:
         human_state = False
     
-    cv.imshow("Image", img)
+    cv.imshow("Video", img)
 
 def connect_mqtt():#连接mqtt
     def on_connect(client, userdata, flags, rc):
@@ -63,16 +63,15 @@ def connect_mqtt():#连接mqtt
     return client
 
 def publish(client):#发布mqtt
-    if human_state == True:
-        #msg = f"human {msg_count}"
-        msg = f'Human exist at '+ show_capture_time
-        result = client.publish(topic, msg)
-        #result: [0,1]
-        status = result[0]
-        if status == 0:
-            print(f"Send `{msg}` to topic `{topic}`")
-        else:
-            print(f"Failed to send message to topic {topic}")
+    #msg = f"human {msg_count}"
+    msg = f'Human exist at '+ show_capture_time
+    result = client.publish(topic, msg)
+    #result: [0,1]
+    status = result[0]
+    if status == 0:
+        print(f"Send `{msg}` to topic `{topic}`")
+    else:
+        print(f"Failed to send message to topic {topic}")
 
 def run():
     client = connect_mqtt()
@@ -86,7 +85,7 @@ while True:
     ret, img = cap.read()#逐帧显示
     discern(img)
     time_interval = time.time() - last_capture_time_stamp
-    if time_interval >= 1:
+    if human_state == True and time_interval >= 1:
         run()
         last_capture_time_stamp = time.time()
         #cv2.imshow("Image", img)#保存含有人体的帧
