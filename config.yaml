@@ -5,6 +5,7 @@ from_url_or_cam: "rtsp:/192.168.0.116:8554/cam"
 url: "rtsp:/192.168.0.116:8554/cam"
 cam: 0
 module: "./data/haarcascade_eye.xml"
+pic_save_path: "./pic"
 
 #mqtt perferences
 broker: '192.168.0.119'

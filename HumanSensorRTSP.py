@@ -4,6 +4,7 @@ from paho.mqtt import client as mqtt_client
 import time
 import yaml
 import os
+from datetime import datetime
 
 curPath = os.path.dirname(os.path.realpath(__file__))
 yamlPath = os.path.join(curPath, "config.yaml")
@@ -20,13 +21,11 @@ topic = preferences['topic']
 print('CV2 Version is ' + cv.__version__ )
 print('Starting...')
 
-'''以图片保存含有人体的帧
 def imgSave(img):
     now = datetime.now()  # 获得当前时间
-    timestr = now.strftime("/Users/YourUserName/Desktop/test/%Y_%m_%d_%H_%M_%S.jpeg")
-    cv2.imwrite(timestr, img )
+    timestr = now.strftime(preferences['pic_save_path'])
+    cv.imwrite(timestr, img )
     print('Saved successfully')
-'''
 
 last_capture_time_stamp = time.time()
 
